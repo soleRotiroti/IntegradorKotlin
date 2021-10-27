@@ -1,5 +1,5 @@
 import java.util.*
-
+import java.util.concurrent.TimeUnit
 
 
 fun main(args: Array<String>) {
@@ -9,24 +9,37 @@ fun main(args: Array<String>) {
     val minibus = Vehicle ("CC333CC", VehicleType.MINIBUS, Calendar.getInstance())
     val bus = Vehicle ("DD444DD", VehicleType.BUS, Calendar.getInstance(), "DISCORD_CARD_002" )
 
-    val parking = Parking (mutableSetOf(car, moto, minibus, bus))
-
     val car2 = Vehicle ("EE111EE", VehicleType.CAR, Calendar.getInstance())
-    val moto2 = Vehicle ("FF222FF", VehicleType.MOTORCYCLE, Calendar.getInstance())
+    val moto2 = Vehicle ("B2222BBB", VehicleType.MOTORCYCLE, Calendar.getInstance())
     val minibus2 = Vehicle ("GG333GG", VehicleType.MINIBUS, Calendar.getInstance())
     val bus2 = Vehicle ("HH444HH", VehicleType.BUS, Calendar.getInstance() )
 
 
-    val vehicles = listOf(car2, moto2, minibus2, bus2)
+    var arrayVehicles = arrayOf<Vehicle>(car,moto,minibus,bus)
+    var parking = Parking(mutableSetOf(),6)
 
-    vehicles.forEach {
-        parking.addVehicle(it)
-        println (parking.message(it))
+    for(vehicle in arrayVehicles){
+        parking.addVehicle(vehicle)
     }
 
-
+    parking.removeVehicle(minibus)
+    parking.getGain()
+    parking.removeVehicle(bus)
+    parking.getGain()
 
 }
+
+//Responder: ¿Por qué se define vehicles como un Set ?
+// Recuerda en qué se diferencian los Set de los Array. ¿Podrían existir dos
+//vehículos iguales?
+
+//¿Puede cambiar el tipo de vehículo en el tiempo?
+// ¿Debe definirse como variable o como constante en Vehicle?
+
+//checkintime ¿Dónde deben agregarse las propiedades, en  ParkingSpace,  Vehicle o en ambos?
+// La tarjeta de descuentos es opcional, es decir que un vehículo puede no tener una tarjeta y su valor será null.
+// ¿Cómo indicamos que un tipo de datos puede adquirir esta característica en Kotlin?
+
 
 
 

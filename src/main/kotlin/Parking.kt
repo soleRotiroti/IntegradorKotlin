@@ -1,18 +1,51 @@
+data class Parking(val vehicles: MutableSet<Vehicle>, val maxVehicles: Int){
 
-data class Parking(val vehicles: MutableSet<Vehicle>){
+    private var earnings = 0
+    private var lotVehicle = 0
 
-    val maxVehicles = 20
+    var pair: Pair<Int, Int> = Pair (0,0)
 
     fun addVehicle (vehicle: Vehicle): Boolean{
         if (vehicles.size<maxVehicles){
-            vehicles.add(vehicle)
+
+            val success = vehicles.add(vehicle)
+            if (!success){
+                println("Sorry, the has check-in failed")
+                return false
+            }
+            println("Welcome to AlkeParking!")
             return true
-        }else return false
+        }
+
+        println("Sorry, the check-in failed")
+        return false
     }
 
-    fun message (vehicle: Vehicle): String {
-        return if(vehicles.contains(vehicle)) "Welcome to AlkeParking" else "Sorry, the has check-in failed"
+    fun removeVehicle (vehicle: Vehicle){
+        var parkingSpace = ParkingSpace(vehicle, vehicles)
+        parkingSpace.checkOutVehicle(vehicle.plate,::onSucces, ::onError )
     }
+
+
+    fun listVehicles(){
+        for (v in vehicles){
+            println(v.plate)
+        }
+    }
+
+    fun onSucces(n: Int){
+        earnings += + n
+        lotVehicle += +1
+        pair = Pair(lotVehicle, earnings)
+        println("Your fee is:  $"+ n + ". Come back soon." )
+
+    }
+
+    fun onError(){
+        println("Sorry, the check-out failed")
+    }
+
+    fun getGain() = println("${pair.first} vehicles have checked out and have earnings of ${pair.second}")
 
 
 }

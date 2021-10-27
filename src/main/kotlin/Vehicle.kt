@@ -5,7 +5,8 @@ data class Vehicle(val plate: String, val type: VehicleType, val checkInTime: Ca
     val parkedTime: Long
         get() {
             val MINUTES_IN_MILISECONDS = 600000
-            return (Calendar.getInstance().timeInMillis-checkInTime.timeInMillis)/MINUTES_IN_MILISECONDS
+            //return (Calendar.getInstance().timeInMillis - checkInTime.timeInMillis)/MINUTES_IN_MILISECONDS
+            return 198
         }
 
     override fun equals(other: Any?): Boolean {
